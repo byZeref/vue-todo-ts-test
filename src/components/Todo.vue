@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import type { SingleTodo } from '@/types/todo';
-
+import type { SingleTodo } from '@/types/types'
 const props = defineProps<{
   todo: SingleTodo,
 }>()
@@ -26,7 +25,7 @@ const emit = defineEmits<{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: gray;
+  /* background-color: gray; */
   margin: 10px 0;
   padding: 10px 20px;
   border-radius: 5px;
@@ -35,7 +34,7 @@ const emit = defineEmits<{
   cursor: pointer;
   transition: all .3s ease;
   &:active {
-    scale: .95;
+    scale: .9;
   }
   &:hover {
     opacity: .8;
@@ -68,7 +67,7 @@ const emit = defineEmits<{
     }
   }
 .todo-item.shake {
-  background-color: rgb(122, 60, 60);
+  /* background-color: #7a3c3c; */
   animation: shaking .3s linear;
 }
 .todo-item.completed {
@@ -78,7 +77,7 @@ const emit = defineEmits<{
   text-decoration: line-through;
 }
 .btn.delete {
-  background-color: rgb(225, 61, 61);
+  background-color: #e13d3d;
   margin-left: 10px;
   padding: 8px 16px;
   border-radius: 5px;
@@ -91,3 +90,4 @@ const emit = defineEmits<{
   }
 }
 </style>
+@/types/types

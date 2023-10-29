@@ -19,6 +19,12 @@
   --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
   --vt-c-text-dark-1: var(--vt-c-white);
   --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+
+  --input-bg-light: #c4c3c3;
+  --input-bg-dark: #808080;
+
+  --todo-red-light: #e07474;
+  --todo-red-dark: #6c3434;
 }
 
 /* semantic color variables for this project */
@@ -34,6 +40,8 @@
   --color-text: var(--vt-c-text-light-1);
 
   --section-gap: 160px;
+  --input-bg: var(--input-bg-light);
+  --todo-repeated-red: var(--todo-red-light);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -47,18 +55,21 @@
 
     --color-heading: var(--vt-c-text-dark-1);
     --color-text: var(--vt-c-text-dark-2);
+
+    --input-bg: var(--input-bg-dark);
+    --todo-repeated-red: var(--todo-red-dark);
   }
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  font-weight: normal;
+input, .todo-item {
+  background: var(--input-bg);
+}
+.todo-item.shake {
+  background: var(--todo-repeated-red);
 }
 
 body {
+  margin: 0;
   min-height: 100vh;
   color: var(--color-text);
   background: var(--color-background);

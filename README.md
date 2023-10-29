@@ -1,6 +1,6 @@
-# vue-initial-ts
+# TO-DO app
 
-This template should help get you started developing with Vue 3 in Vite.
+A to-do app with TypeScript and testing
 
 ## Recommended IDE Setup
 

@@ -2,18 +2,19 @@
 import { ref } from 'vue'
 import Todo from "@/components/Todo.vue";
 import type { Ref } from 'vue'
-import type { SingleTodo } from '@/types/todo'
+import type { SingleTodo } from '@/types/types'
+import { v4 as setUUID } from 'uuid'
 
 const list: Ref<SingleTodo[]> = ref([])
 const text = ref('')
 const duplicatedTodo: Ref<SingleTodo | undefined> = ref(undefined)
 
 const submit = () => {
-  if (text.value.trim() === '') return;
+  if (text.value === '') return;
   
   if (validate()) {
     const obj = {
-      id: crypto.randomUUID(),
+      id: setUUID(),
       label: text.value,
       done: false,
       shake: false
@@ -21,7 +22,7 @@ const submit = () => {
     list.value.unshift(obj)
     text.value = ''
   } else {
-    duplicatedTodo.value = list.value.find(item => item.label === text.value)
+    duplicatedTodo.value = list.value.find(item => item.label === text.value.trim())
     duplicatedTodo.value!.shake = true
     setTimeout(() => {
       duplicatedTodo.value!.shake = false
@@ -57,11 +58,10 @@ const checkTodo = (todo: SingleTodo) => {
 
 <template>
   <header>TO-DO LIST</header>
-
   <main>
     <section class="form">
       <form @submit.prevent="submit" class="todo-form" role="form">
-        <input role="todo-input" type="text" v-model="text">
+        <input role="todo-input" type="text" v-model.trim="text">
         <button type="submit">Agregar</button>
       </form>
     </section>
@@ -81,16 +81,13 @@ const checkTodo = (todo: SingleTodo) => {
   </main>
 </template>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
 .appearing-enter-active {
   transition: all .5s .1s ease-in;
 }
 .appearing-leave-active {
   transition: all .2s ease-out;
 }
-/* .appearing-enter-active, .appearing-leave-active {
-  transition: all .5s .2s ease-out;
-} */
 .appearing-enter-from, .appearing-leave-to {
   opacity: 0;
   transform: translateY(-50px);
@@ -103,10 +100,6 @@ header {
   margin: 40px 0;
 }
 
-main {
-  width: 450px;
-}
-
 .form {
   margin-bottom: 30px;
 }
@@ -115,10 +108,14 @@ form {
   display: flex;
 }
 
+
 input {
-  width: 100%;
+  @media (max-width: 600px) {
+    width: 50vw;
+  }
+  width: 320px;
   min-height: 40px;
-  background-color: #808080;
+  // background-color: #808080;
   border-radius: 5px;
   padding: 0 10px;
   transition: all .3s ease-in-out;
@@ -159,3 +156,4 @@ button {
 ul {
   padding: 0;
 }</style>
+@/types/types
