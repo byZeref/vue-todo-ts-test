@@ -84,7 +84,7 @@ const checkTodo = (todo: SingleTodo) => {
 <style lang="scss" scoped>
 .appearing {
   &-enter-active {
-    transition: all .5s 1s ease-in;
+    transition: all .5s .1s ease-in;
   }
   &-leave-active {
     transition: opacity .3s ease-out;
