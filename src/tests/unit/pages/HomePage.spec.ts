@@ -1,17 +1,23 @@
 import { describe, test, expect } from "vitest";
-import { mount } from "@vue/test-utils";
-import HomeView from '@/views/HomeView.vue'
-import { createTodo } from '../mocks/todo.mock'
+import { mount, shallowMount } from "@vue/test-utils";
+import HomePage from '@/pages/HomePage.vue'
+import { createTodo, todosArr } from '../mocks/todo.mock'
 
-describe('Home View', () => {
+describe('Home Page', () => {
   
   test('renderiza el componente', () => {
-    mount(HomeView)
+    mount(HomePage)
+  })
+
+
+  test('hace match con snapshot', () => {
+    const wrapper = shallowMount(HomePage)
+    expect(wrapper.html()).toMatchSnapshot()
   })
 
   
   test('agrega 2 todos a la lista', async () => {
-    const wrapper = mount(HomeView)
+    const wrapper = mount(HomePage)
     const form = wrapper.get('[role="form"]')
     const input = wrapper.get('[role="todo-input"]')
     const todos = ['Comprar pan', 'Comprar queso']
@@ -32,12 +38,11 @@ describe('Home View', () => {
     expect(wrapper.findAll('[role="single-todo"]')[0].get('span').text()).toBe('Comprar queso')
     expect(wrapper.findAll('[role="single-todo"]')[1].get('span').text()).toBe('Comprar pan')
     expect(input.text()).toBe('')
-
   })
  
 
   test('completa un todo', async () => {
-    const wrapper = mount(HomeView)
+    const wrapper = mount(HomePage)
     const form = wrapper.get('[role="form"]')
     const input = wrapper.get('[role="todo-input"]')
 
@@ -52,7 +57,7 @@ describe('Home View', () => {
 
 
   test('elimina un todo', async () => {
-    const wrapper = mount(HomeView)
+    const wrapper = mount(HomePage)
     const btns = wrapper.findAll('[role="delete-todo"]')
 
     await createTodo(wrapper, 'Comprar pan')
@@ -62,6 +67,24 @@ describe('Home View', () => {
     await wrapper.findAll('[role="delete-todo"]')[0].trigger('click')
     expect(wrapper.findAll('[role="single-todo"]')).toHaveLength(1)
     expect(wrapper.findAll('[role="single-todo"]')[0].get('span').text()).toBe('Comprar pan')
+  })
+
+
+  test('detecta que el todo ya existe', async () => {
+    const wrapper = mount(HomePage)
+
+    const form = wrapper.get('[role="form"]')
+    const input = wrapper.get('[role="todo-input"]')
+    
+    await input.setValue('Comprar pan 2 veces')
+    await form.trigger('submit')
+    
+    expect(wrapper.findAll('[role="single-todo"]')).toHaveLength(1)
+    
+    await input.setValue('Comprar pan 2 veces')
+    await form.trigger('submit')
+
+    expect(wrapper.findAll('[role="single-todo"]')).toHaveLength(1)
   })
 
 })

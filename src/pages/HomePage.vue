@@ -74,7 +74,7 @@ const checkTodo = (todo: SingleTodo) => {
             :todo="item"
             @click="checkTodo(item)"
             @delete="deleteTodo(item.id)"
-            />
+          />
         </TransitionGroup>
       </ul>
     </section>
@@ -82,15 +82,20 @@ const checkTodo = (todo: SingleTodo) => {
 </template>
 
 <style lang="scss" scoped>
-.appearing-enter-active {
-  transition: all .5s .1s ease-in;
-}
-.appearing-leave-active {
-  transition: all .2s ease-out;
-}
-.appearing-enter-from, .appearing-leave-to {
-  opacity: 0;
-  transform: translateY(-50px);
+.appearing {
+  &-enter-active {
+    transition: all .5s 1s ease-in;
+  }
+  &-leave-active {
+    transition: opacity .3s ease-out;
+  }
+  &-enter-from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  &-leave-to {
+    opacity: 0;
+  }
 }
 
 header {
@@ -155,5 +160,6 @@ button {
 
 ul {
   padding: 0;
-}</style>
-@/types/types
+}
+
+</style>

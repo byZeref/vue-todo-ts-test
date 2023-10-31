@@ -36,7 +36,7 @@ const emit = defineEmits<{
   &:active {
     scale: .9;
   }
-  &:hover {
+  &:not(.appearing-leave-to):hover {
     opacity: .8;
   }
 }
@@ -90,4 +90,3 @@ const emit = defineEmits<{
   }
 }
 </style>
-@/types/types

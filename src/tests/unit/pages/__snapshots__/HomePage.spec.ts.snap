@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Home Page > hace match con snapshot 1`] = `
+"<header data-v-2d1117dc=\\"\\">TO-DO LIST</header>
+<main data-v-2d1117dc=\\"\\">
+  <section data-v-2d1117dc=\\"\\" class=\\"form\\">
+    <form data-v-2d1117dc=\\"\\" class=\\"todo-form\\" role=\\"form\\"><input data-v-2d1117dc=\\"\\" role=\\"todo-input\\" type=\\"text\\"><button data-v-2d1117dc=\\"\\" type=\\"submit\\">Agregar</button></form>
+  </section>
+  <section data-v-2d1117dc=\\"\\">
+    <ul data-v-2d1117dc=\\"\\" class=\\"todo-list\\" role=\\"todo-list\\">
+      <transition-group-stub data-v-2d1117dc=\\"\\" name=\\"appearing\\" appear=\\"false\\" persisted=\\"false\\" css=\\"true\\"></transition-group-stub>
+    </ul>
+  </section>
+</main>"
+`;
