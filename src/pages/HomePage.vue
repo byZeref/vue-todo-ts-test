@@ -54,6 +54,11 @@ const checkTodo = (todo: SingleTodo) => {
   }
 }
 
+// CUSTOM DIRECTIVE
+const vFocus = {
+  mounted: (el: HTMLElement) => el.focus()
+}
+
 </script>
 
 <template>
@@ -61,8 +66,11 @@ const checkTodo = (todo: SingleTodo) => {
   <main>
     <section class="form">
       <form @submit.prevent="submit" class="todo-form" role="form">
-        <input role="todo-input" type="text" v-model.trim="text">
-        <button type="submit">Agregar</button>
+        <input v-focus role="todo-input" type="text" v-model.trim="text">
+        <button type="submit">
+          <img class="add-icon" src="add.svg" alt="add-icon">
+          <span>Agregar</span>
+        </button>
       </form>
     </section>
     <section>
@@ -82,12 +90,21 @@ const checkTodo = (todo: SingleTodo) => {
 </template>
 
 <style lang="scss" scoped>
+.todo-list {
+  @media (max-width: 640px) {
+    width: 80vw;
+  }
+  position: relative;
+  padding: 0;
+  width: 450px;
+}
 .appearing {
   &-enter-active {
-    transition: all .5s .1s ease-in;
+    transition: all .5s ease-in;
   }
   &-leave-active {
-    transition: opacity .3s ease-out;
+    transition: all .5s ease-out;
+    position: absolute;
   }
   &-enter-from {
     opacity: 0;
@@ -95,6 +112,10 @@ const checkTodo = (todo: SingleTodo) => {
   }
   &-leave-to {
     opacity: 0;
+    scale: .8;
+  }
+  &-move {
+    transition: all .5s ease;
   }
 }
 
@@ -115,12 +136,9 @@ form {
 
 
 input {
-  @media (max-width: 600px) {
-    width: 50vw;
-  }
-  width: 320px;
+  min-width: 10px;
+  width: 100%;
   min-height: 40px;
-  // background-color: #808080;
   border-radius: 5px;
   padding: 0 10px;
   transition: all .3s ease-in-out;
@@ -138,11 +156,15 @@ input {
 }
 
 button {
+  @media (max-width: 620px) {
+    padding: 10px;
+  }
+  display: flex;
+  align-items: center;
   margin-left: 10px;
   padding: 11px 20px;
   border-radius: 5px;
   font-size: 16px;
-  /* box-sizing: content-box; */
   background-color: #336ab1;
   color: white;
   border: none;
@@ -156,10 +178,18 @@ button {
   &:active {
     scale: .9;
   }
-}
-
-ul {
-  padding: 0;
+  .add-icon {
+    @media (min-width: 621px) {
+      display: none;
+    }
+    width: 25px;
+    height: 25px;
+  }
+  span {
+    @media (max-width: 620px) {
+      display: none;
+    }
+  }
 }
 
 </style>

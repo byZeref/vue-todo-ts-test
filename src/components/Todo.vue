@@ -12,22 +12,26 @@ const emit = defineEmits<{
 
 <template>
   <div :class="['todo-item', { completed: todo.done, shake: todo.shake }]" role="single-todo">
-    <span>{{ todo.label }}</span>
+    <div class="todo-text">
+      <span>{{ todo.label }}</span>
+    </div>
 
     <button class="btn delete" role="delete-todo" @click.stop="$emit('delete')">
-      Eliminar
+      <img class="remove-icon" src="trash.svg" alt="remove-icon">
+      <span>Eliminar</span>
     </button>
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .todo-item {
+  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* background-color: gray; */
   margin: 10px 0;
   padding: 10px 20px;
+  width: 100%;
   border-radius: 5px;
   color: black;
   user-select: none;
@@ -38,6 +42,11 @@ const emit = defineEmits<{
   }
   &:not(.appearing-leave-to):hover {
     opacity: .8;
+  }
+  .todo-text {
+    max-width: 75%;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
   }
 }
 @keyframes shaking {
@@ -67,7 +76,6 @@ const emit = defineEmits<{
     }
   }
 .todo-item.shake {
-  /* background-color: #7a3c3c; */
   animation: shaking .3s linear;
 }
 .todo-item.completed {
@@ -77,6 +85,11 @@ const emit = defineEmits<{
   text-decoration: line-through;
 }
 .btn.delete {
+  @media (max-width: 620px) {
+    padding: 8px 10px;
+  }
+  display: flex;
+  align-items: center;
   background-color: #e13d3d;
   margin-left: 10px;
   padding: 8px 16px;
@@ -87,6 +100,18 @@ const emit = defineEmits<{
   transition: opacity .3s ease;
   &:hover {
     opacity: .8;
+  }
+  .remove-icon {
+    @media (min-width: 621px) {
+      display: none;
+    }
+    width: 20px;
+    height: 20px;
+  }
+  span {
+    @media (max-width: 620px) {
+      display: none;
+    }
   }
 }
 </style>
