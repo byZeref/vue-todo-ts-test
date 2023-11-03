@@ -68,7 +68,7 @@ const vFocus = {
       <form @submit.prevent="submit" class="todo-form" role="form">
         <input v-focus role="todo-input" type="text" v-model.trim="text">
         <button type="submit">
-          <img class="add-icon" src="add.svg" alt="add-icon">
+          <img class="add-icon" src="/public/add.svg" alt="add-icon">
           <span>Agregar</span>
         </button>
       </form>
