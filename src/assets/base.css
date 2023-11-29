@@ -43,8 +43,22 @@
   --input-bg: var(--input-bg-light);
   --todo-repeated-red: var(--todo-red-light);
 }
+:root.dark {
+  --color-background: var(--vt-c-black);
+  --color-background-soft: var(--vt-c-black-soft);
+  --color-background-mute: var(--vt-c-black-mute);
 
-@media (prefers-color-scheme: dark) {
+  --color-border: var(--vt-c-divider-dark-2);
+  --color-border-hover: var(--vt-c-divider-dark-1);
+
+  --color-heading: var(--vt-c-text-dark-1);
+  --color-text: var(--vt-c-text-dark-2);
+
+  --input-bg: var(--input-bg-dark);
+  --todo-repeated-red: var(--todo-red-dark);
+}
+
+/* @media (prefers-color-scheme: dark) {
   :root {
     --color-background: var(--vt-c-black);
     --color-background-soft: var(--vt-c-black-soft);
@@ -59,7 +73,7 @@
     --input-bg: var(--input-bg-dark);
     --todo-repeated-red: var(--todo-red-dark);
   }
-}
+} */
 
 input, .todo-item {
   background: var(--input-bg);

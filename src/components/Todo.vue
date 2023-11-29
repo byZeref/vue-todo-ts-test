@@ -17,7 +17,7 @@ const emit = defineEmits<{
     </div>
 
     <button class="btn delete" role="delete-todo" @click.stop="$emit('delete')">
-      <img class="remove-icon" src="/public/trash.svg" alt="remove-icon">
+      <img class="remove-icon" src="/trash.svg" alt="remove-icon">
       <span>Eliminar</span>
     </button>
   </div>

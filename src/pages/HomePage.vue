@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import Todo from "@/components/Todo.vue";
 import type { Ref } from 'vue'
 import type { SingleTodo } from '@/types/types'
@@ -54,6 +54,29 @@ const checkTodo = (todo: SingleTodo) => {
   }
 }
 
+const theme = ref('')
+
+const toggleDark = (force?: boolean) => document.documentElement.classList.toggle('dark', force)
+
+const changeTheme = () => {
+  toggleDark()
+  theme.value = theme.value === 'dark' ? 'light' : 'dark'
+  localStorage.setItem('dark', JSON.stringify(theme.value === 'dark'))
+}
+
+onMounted(() => {
+  const dark = window.matchMedia('(prefers-color-scheme: dark)')
+  
+  if (localStorage.getItem('dark')) {
+    const val = JSON.parse(localStorage.getItem('dark')!)
+    theme.value = val ? 'dark' : 'light'
+    toggleDark(val)
+  } else {
+    theme.value = dark.matches ? 'dark' : 'light'
+    theme.value === 'dark' && toggleDark()
+  }
+})
+
 // CUSTOM DIRECTIVE
 const vFocus = {
   mounted: (el: HTMLElement) => el.focus()
@@ -62,13 +85,17 @@ const vFocus = {
 </script>
 
 <template>
+  <div class="theme-btn" @click="changeTheme">
+    <img v-if="theme === 'dark'" src="/light.svg" alt="">
+    <img v-else src="/dark.svg" alt="">
+  </div>
   <header>TO-DO LIST</header>
   <main>
     <section class="form">
       <form @submit.prevent="submit" class="todo-form" role="form">
         <input v-focus role="todo-input" type="text" v-model.trim="text">
-        <button type="submit">
-          <img class="add-icon" src="/public/add.svg" alt="add-icon">
+        <button class="btn-submit" type="submit">
+          <img class="add-icon" src="/add.svg" alt="add-icon">
           <span>Agregar</span>
         </button>
       </form>
@@ -90,6 +117,17 @@ const vFocus = {
 </template>
 
 <style lang="scss" scoped>
+.theme-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  img {
+    width: 100%;
+  }
+}
 .todo-list {
   @media (max-width: 640px) {
     width: 80vw;
@@ -155,7 +193,7 @@ input {
 
 }
 
-button {
+button.btn-submit {
   @media (max-width: 620px) {
     padding: 10px;
   }
